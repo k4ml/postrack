@@ -15,3 +15,12 @@ To test the included command line client:-
 Output should look like:-
 
 <a href="http://imgur.com/LSIeEeK"><img src="http://i.imgur.com/LSIeEeK.png" title="postrack output" /></a>
+
+To use the library in your application:-
+
+```php
+<?
+use k4ml\postrack\Parcel;
+$parcel = new Parcel('EM61871881MY');
+print_r($parcel->check());
+?>
