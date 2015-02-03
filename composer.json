@@ -1,0 +1,23 @@
+{
+    "name": "k4ml/postrack",
+    "description": "Malaysian courier tracker library",
+    "authors": [
+        {
+            "name": "Kamal Mustafa",
+            "email": "kamal@satukosong.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "guzzlehttp/guzzle": "~5.0",
+        "symfony/dom-crawler": "2.6.4",
+        "symfony/css-selector": "2.6.4",
+        "symfony/console": "2.6.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "k4ml\\postrack\\": "src"
+        }
+    },
+    "bin": ["bin/tracker.php"]
+}
