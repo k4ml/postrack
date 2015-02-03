@@ -24,6 +24,7 @@ use k4ml\postrack\Parcel;
 $parcel = new Parcel('EM61871881MY');
 print_r($parcel->check());
 ?>
+```
 
 ## Todos
 A lot can be done. Among others:-
