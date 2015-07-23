@@ -26,6 +26,12 @@ print_r($parcel->check());
 ?>
 ```
 
+To run the tests (configured in `phpunit.xml`):-
+
+```console
+vendor/bin/phpunit
+```
+
 ## Todos
 A lot can be done. Among others:-
 
