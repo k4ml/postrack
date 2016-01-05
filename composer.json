@@ -10,18 +10,20 @@
     "license": "ISC",
     "minimum-stability": "dev",
     "require": {
-        "guzzlehttp/guzzle": "~5.0",
-        "symfony/dom-crawler": "2.6.4",
-        "symfony/css-selector": "2.6.4",
-        "symfony/console": "2.6.4"
+        "symfony/console": "2.6.4",
+        "fabpot/goutte": "~3.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.14",
-        "antecedent/patchwork": "*"
+        "phpunit/phpunit": "~4.8"
     },
     "autoload": {
         "psr-4": {
-            "k4ml\\postrack\\": "src"
+            "k4ml\\postrack\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "k4ml\\postrack\\tests\\": "tests/"
         }
     },
     "bin": ["bin/tracker.php"]
