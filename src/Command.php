@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use k4ml\postrack\Tracker;
-use k4ml\postrack\Parcel;
+use k4ml\postrack\Parcel\Poslaju as Parcel;
 
 class Command extends ConsoleCommand {
     protected function configure() {
@@ -24,11 +24,11 @@ class Command extends ConsoleCommand {
         $p = new Parcel($parcelNo);
         $results = $p->check();
         foreach ($results as $result) {
-            if (strpos($result, 'Delivered')) {
-                $output->writeln("<info>$result</info>");
+            if (strpos($result['status'], 'delivered')) {
+                $output->writeln("<info>".implode(' ', $result)."</info>");
             }
             else {
-                $output->writeln("<comment>$result</comment>");
+                $output->writeln("<comment>".implode(' ', $result)."</comment>");
             }
         }
     }

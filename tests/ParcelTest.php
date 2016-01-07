@@ -1,22 +1,83 @@
 <?php
-namespace k4ml\postracker\tests;
+namespace k4ml\postrack\tests;
 
-use GuzzleHttp\Stream\Stream;
-
-use k4ml\postrack\Parcel;
+use k4ml\postrack\ParcelFactory;
+use k4ml\postrack\Parcel\Poslaju;
+use k4ml\postrack\Parcel\Abx;
+use k4ml\postrack\Parcel\Nationwide;
 
 class ParcelTest extends \PHPUnit_Framework_TestCase {
-    public function testCheckDelivered() {
-        \Patchwork\replace('GuzzleHttp\Client::post', function($url, $data) {
-            $resp = new \GuzzleHttp\Message\Response(200);
-            $body = file_get_contents(dirname('__DIR__') . '/tests/poslaju.html');
-            $resp->setBody(Stream::factory($body));
-            return $resp;
-        });
 
-        $p = new Parcel('1415151');
-        $results = $p->check();
-        $this->assertEquals(strpos($results[0], 'Delivered'), 21);
-        $this->assertEquals(strpos($results[10], 'PO SUNGAI KOYAN'), 45);
+    public function parcelData()
+    {
+        return array(
+            array('poslaju'),
+            array('abx'),
+            array('nationwide'),
+        );
+    }
+
+    /**
+     *  @dataProvider parcelData
+     */
+
+    public function testCreateParcel($type)
+    {
+        $parcel = ParcelFactory::create($type, '');
+        $this->assertInstanceOf('\k4ml\postrack\Parcel\AbstractParcel', $parcel);
+    }
+
+    public function poslajuData()
+    {
+        return array(
+            array('EH038290948MY', 'Item delivered to  MARIATU')
+        );
+    }
+
+    /**
+     *  @dataProvider poslajuData
+     */
+
+    public function testPoslaju($tracking_no, $expected)
+    {
+        $poslaju = new Poslaju($tracking_no);
+        $result = $poslaju->check();
+        $this->assertContains($expected, json_encode($result));
+    }
+
+    public function abxData()
+    {
+        return array(
+            array('8070372892', 'SENT TO KJXC')
+        );
+    }
+
+    /**
+     *  @dataProvider abxData
+     */
+
+    public function testAbx($tracking_no, $expected)
+    {
+        $abx = new Abx($tracking_no);
+        $result = $abx->check();
+        $this->assertTrue(FALSE);
+    }
+
+    public function nationwideData()
+    {
+        return array(
+            array('52292617', 'Delivered 07 Jan 2013 12:45')
+        );
+    }
+
+    /**
+     *  @dataProvider nationwideData
+     */
+
+    public function testNationwide($tracking_no, $expected)
+    {
+        $nationwide = new Nationwide($tracking_no);
+        $result = $nationwide->check();
+        $this->assertTrue(FALSE);
     }
 }
