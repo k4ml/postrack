@@ -1,0 +1,6 @@
+pipeline:
+  build:
+    image: php
+    commands:
+      - composer update
+      - vendor/bin/phpunit
